@@ -4,7 +4,7 @@ export async function GET() {
   const params = new URLSearchParams();
 
   const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const site_address = process.env.SITE_ADDRESS;
+  const site_address = process.env.NEXT_AUTH_URL;
 
   if (!client_id || !site_address)
     throw new Error("Missing environment variables");
