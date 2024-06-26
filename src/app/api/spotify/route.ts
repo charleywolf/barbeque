@@ -4,7 +4,7 @@ export async function GET() {
   const params = new URLSearchParams();
 
   const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const site_address = process.env.NEXT_AUTH_URL;
+  const site_address = process.env.NEXTAUTH_URL;
 
   if (!client_id || !site_address)
     throw new Error("Missing environment variables");
@@ -16,9 +16,15 @@ export async function GET() {
     "user-read-playback-state user-modify-playback-state user-read-currently-playing"
   );
   if (process.env.NODE_ENV === "development") {
-    params.append("redirect_uri", "http://localhost:3000");
+    params.append(
+      "redirect_uri",
+      "http://localhost:3000" + "/api/spotify/generateRefreshToken"
+    );
   } else {
-    params.append("redirect_uri", site_address);
+    params.append(
+      "redirect_uri",
+      site_address + "/api/spotify/generateRefreshToken"
+    );
   }
 
   return NextResponse.redirect(
