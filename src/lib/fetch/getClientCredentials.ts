@@ -26,11 +26,11 @@ export default async function getClientCredentials(): Promise<string> {
       },
     };
 
-    const authRequest = await fetch(
+    const data = await fetch(
       "https://accounts.spotify.com/api/token",
       authOptions
     );
-    const body = (await authRequest.json()) as unknown;
+    const body = (await data.json()) as unknown;
     if (
       typeof body === "object" &&
       body &&
@@ -43,7 +43,9 @@ export default async function getClientCredentials(): Promise<string> {
     ) {
       return body.token_type + " " + body.access_token;
     } else {
-      throw Error("Invalid response from Spotify API");
+      throw Error(
+        `Invalid response from Spotify API: ${data.status} ${data.statusText}`
+      );
     }
   } catch (e) {
     throw Error("Fetch error: " + e);

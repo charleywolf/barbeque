@@ -14,6 +14,10 @@ export default function DashboardDisplay({
   const [currentPlayback, setCurrentPlayback] =
     useState<SpotifyApi.CurrentlyPlayingResponse | null>(playback);
 
+  const [isPlaying, setIsPlaying] = useState<boolean>(
+    playback?.is_playing ?? false
+  );
+
   useEffect(() => {
     const interval = setInterval(async () => {
       if (!document.hidden) {
@@ -39,7 +43,7 @@ export default function DashboardDisplay({
     currentPlayback.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID;
 
   return (
-    <main className="relative w-screen min-h-screen text-white">
+    <main className="relative w-screen bg-slate-900 min-h-screen text-white">
       {valid && currentPlayback.item && "album" in currentPlayback.item ? (
         <>
           <Wrapper
@@ -52,10 +56,10 @@ export default function DashboardDisplay({
             albumTracks={currentPlayback.item.album.total_tracks}
             songPopularity={currentPlayback.item.popularity}
             imageSrc={currentPlayback.item.album.images[0].url}
-            isPlaying={currentPlayback.is_playing}
+            isPlaying={isPlaying}
             dashboard
           />
-          <Controls isPlaying={currentPlayback.is_playing} />
+          <Controls isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
         </>
       ) : (
         <NoPlayback />

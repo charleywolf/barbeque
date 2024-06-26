@@ -3,12 +3,12 @@ import "server-only";
 import getUserAuthorization from "./getUserAuthorization";
 import { revalidateTag } from "next/cache";
 
-export default async function pausePlayback(): Promise<boolean> {
+export default async function skipToPrevious(): Promise<boolean> {
   try {
     const authToken = await getUserAuthorization();
 
-    const data = await fetch("https://api.spotify.com/v1/me/player/pause", {
-      method: "PUT",
+    const data = await fetch("https://api.spotify.com/v1/me/player/previous", {
+      method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         Authorization: "Bearer " + authToken,

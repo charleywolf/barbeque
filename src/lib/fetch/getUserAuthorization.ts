@@ -59,7 +59,9 @@ export default async function getUserAuthorization(): Promise<string> {
 
         return body.access_token;
       } else {
-        throw Error("Invalid response from Spotify API");
+        throw Error(
+          `Invalid response from Spotify API: ${data.status} ${data.statusText}`
+        );
       }
     } else {
       const accessToken = await kv.get<string>("access_token");
