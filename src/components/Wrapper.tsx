@@ -30,7 +30,7 @@ export default function Wrapper({
       <div
         className={clsx(
           "z-20 flex flex-col absolute left-5",
-          dashboard ? "bottom-24" : "bottom-5"
+          dashboard ? "bottom-36 sm:bottom-8 sm:left-8" : "bottom-5"
         )}
       >
         <Overlay songTitle={songTitle} songArtists={stringifiedArtists} />

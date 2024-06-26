@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import Controls from "./Controls";
 import NoPlayback from "../NoPlayback";
+import Volume from "./Volume";
 import Wrapper from "../Wrapper";
 
 export default function DashboardDisplay({
@@ -16,6 +17,10 @@ export default function DashboardDisplay({
 
   const [isPlaying, setIsPlaying] = useState<boolean>(
     playback?.is_playing ?? false
+  );
+
+  const [volume, setVolume] = useState<number | null>(
+    playback?.device.volume_percent ?? null
   );
 
   useEffect(() => {
@@ -60,6 +65,7 @@ export default function DashboardDisplay({
             dashboard
           />
           <Controls isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+          <Volume volume={volume} setVolume={setVolume} />
         </>
       ) : (
         <NoPlayback />

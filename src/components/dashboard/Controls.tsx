@@ -26,7 +26,7 @@ export default function Controls({
 
   const iconStyle = "h-16 w-16 text-white";
   return (
-    <div className="absolute flex gap-3 bottom-5 left-1/2 transform -translate-x-1/2">
+    <div className="absolute flex gap-3 bottom-16 left-1/2 transform -translate-x-1/2">
       <button onClick={() => handleSkip(true)}>
         <IconPlayerTrackPrevFilled className={iconStyle} />
       </button>
