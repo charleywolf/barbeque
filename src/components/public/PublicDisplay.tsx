@@ -58,7 +58,7 @@ export default function PublicDisplay({
 
         <Link
           href="/dashboard"
-          className="absolute top-3 left-3 h-10 z-20 flex bg-white text-black px-3 py-2 rounded-full"
+          className="absolute text-black top-3 left-3 h-10 z-20 flex bg-white px-3 py-2 rounded-full"
         >
           Dashboard
         </Link>

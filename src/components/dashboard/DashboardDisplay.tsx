@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 
 import Controls from "./Controls";
 import NoPlayback from "../NoPlayback";
+import Queue from "./Queue";
 import Volume from "./Volume";
 import Wrapper from "../Wrapper";
 
 export default function DashboardDisplay({
   playback,
+  queue,
 }: {
   playback: SpotifyApi.CurrentlyPlayingResponse | null;
+  queue?: SpotifyApi.UsersQueueResponse | null;
 }) {
   const [currentPlayback, setCurrentPlayback] =
     useState<SpotifyApi.CurrentlyPlayingResponse | null>(playback);
@@ -35,13 +38,17 @@ export default function DashboardDisplay({
           "device" in data &&
           data.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID
         ) {
+          if (currentPlayback?.device.volume_percent === volume) {
+            setVolume(data?.device.volume_percent);
+          }
           setCurrentPlayback(data);
+          setIsPlaying(data.is_playing);
         }
       }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   const valid =
     currentPlayback &&
@@ -64,11 +71,12 @@ export default function DashboardDisplay({
             isPlaying={isPlaying}
             dashboard
           />
+          {queue && <Queue queueResponse={queue} />}
           <Controls isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
           <Volume volume={volume} setVolume={setVolume} />
         </>
       ) : (
-        <NoPlayback />
+        <NoPlayback dashboard />
       )}
     </main>
   );

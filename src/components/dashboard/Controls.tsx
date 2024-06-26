@@ -24,7 +24,7 @@ export default function Controls({
     if (status) window.location.reload();
   };
 
-  const iconStyle = "h-16 w-16 text-white";
+  const iconStyle = "h-16 w-16 text-white hover:opacity-80";
   return (
     <div className="absolute flex gap-3 bottom-16 left-1/2 transform -translate-x-1/2">
       <button onClick={() => handleSkip(true)}>

@@ -46,14 +46,14 @@ export default function Info({
       <DialogTrigger asChild>
         <IconInfoCircleFilled
           color="white"
-          className="z-20 flex absolute top-3 right-3 text-black h-10 w-10"
+          className="z-20 flex absolute top-3 right-3 h-10 w-10 hover:opacity-80"
         />
       </DialogTrigger>
       <DialogContent className="w-full h-full flex flex-col justify-start">
         <DialogHeader>
           <DialogTitle>Information</DialogTitle>
           <DialogDescription>
-            Additional facts about the currently playing song at the BBQ.
+            Additional facts about the BBQ song.
           </DialogDescription>
         </DialogHeader>
 
