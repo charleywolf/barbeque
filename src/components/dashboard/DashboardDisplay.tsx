@@ -26,12 +26,21 @@ export default function DashboardDisplay({
     playback?.device.volume_percent ?? null
   );
 
+  const [currentQueue, setCurrentQueue] = useState<
+    SpotifyApi.UsersQueueResponse | null | undefined
+  >(queue);
+
   useEffect(() => {
     const interval = setInterval(async () => {
       if (!document.hidden) {
         const response = await fetch("/api/spotify/current-playback");
         const data =
           (await response.json()) as SpotifyApi.CurrentlyPlayingResponse;
+
+        const queueResponse = await fetch("/api/spotify/queue");
+        const queueData =
+          (await queueResponse.json()) as SpotifyApi.UsersQueueResponse;
+
         if (
           data &&
           typeof data === "object" &&
@@ -43,6 +52,14 @@ export default function DashboardDisplay({
           }
           setCurrentPlayback(data);
           setIsPlaying(data.is_playing);
+        }
+
+        if (
+          queueData &&
+          typeof queueData === "object" &&
+          "queue" in queueData
+        ) {
+          setCurrentQueue(queueData);
         }
       }
     }, 5000);
@@ -71,7 +88,7 @@ export default function DashboardDisplay({
             isPlaying={isPlaying}
             dashboard
           />
-          {queue && <Queue queueResponse={queue} />}
+          {currentQueue && <Queue queueResponse={currentQueue} />}
           <Controls isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
           <Volume volume={volume} setVolume={setVolume} />
         </>
