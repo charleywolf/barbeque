@@ -1,6 +1,9 @@
 "use client";
 
-import { getCurrentPlayback, getCurrentQueue } from "@/lib/actions/fetch";
+import {
+  getCurrentPlaybackAction,
+  getCurrentQueueAction,
+} from "@/lib/actions/fetch";
 import { useEffect, useState } from "react";
 
 import Controls from "./Controls";
@@ -37,8 +40,8 @@ export default function DashboardDisplay({
   useEffect(() => {
     const interval = setInterval(async () => {
       if (!document.hidden) {
-        const data = await getCurrentPlayback();
-        const queueData = await getCurrentQueue();
+        const data = await getCurrentPlaybackAction();
+        const queueData = await getCurrentQueueAction();
 
         if (data && data.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID) {
           if (currentPlayback?.device.volume_percent === volume) {
