@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import isAdminSession from "../isAdminSession";
 import pausePlayback from "../fetch/pausePlayback";
 import resumePlayback from "../fetch/resumePlayback";
+import { revalidateTag } from "next/cache";
 import searchForItem from "../fetch/searchForItem";
 import setPlaybackVolume from "../fetch/setPlaybackVolume";
 import skipToNext from "../fetch/skipToNext";
@@ -74,6 +75,17 @@ export async function add(uri: string): Promise<boolean> {
   if (isAdminSession(session)) {
     const status = await addItemToQueue(uri);
     return status;
+  } else {
+    return false;
+  }
+}
+
+export async function refresh() {
+  const session = await auth();
+
+  if (session && session.user && session.user.email) {
+    revalidateTag("playback");
+    return true;
   } else {
     return false;
   }

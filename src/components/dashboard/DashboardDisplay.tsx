@@ -75,7 +75,7 @@ export default function DashboardDisplay({
     currentPlayback.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID;
 
   return (
-    <main className="relative w-screen bg-slate-900 min-h-screen text-white">
+    <main className="screen">
       {valid && currentPlayback.item && "album" in currentPlayback.item ? (
         <>
           <Wrapper

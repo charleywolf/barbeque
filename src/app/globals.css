@@ -88,3 +88,7 @@
     background-color: rgba(254, 240, 138, 0.5); /* Semi-transparent */
   }
 }
+
+.screen {
+  @apply relative w-screen bg-neutral-900 min-h-screen text-white;
+}
