@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import dynamic from "next/dynamic";
 import getPlaybackState from "@/lib/fetch/getPlaybackState";
 import getQueue from "@/lib/fetch/getQueue";
+import isAdminSession from "@/lib/isAdminSession";
 import { redirect } from "next/navigation";
 
 const DynamicDashboardDisplay = dynamic(
@@ -13,16 +14,15 @@ const DynamicDashboardDisplay = dynamic(
 
 export default async function Dashboard() {
   const playback = await getPlaybackState();
-  const user = await auth();
+  const session = await auth();
 
-  if (user && user.user && user.user.email) {
-    if (!process.env.ADMIN_USERS) throw Error("Missing environmentals!");
-    const adminList = process.env.ADMIN_USERS.split(" ");
-
-    const admin = adminList.includes(user.user.email);
+  if (session && session.user && session.user.email) {
+    const admin = isAdminSession(session);
     if (admin) {
       const queue = await getQueue();
-      return <DynamicDashboardDisplay playback={playback} queue={queue} />;
+      return (
+        <DynamicDashboardDisplay playback={playback} queue={queue} admin />
+      );
     } else {
       return <DynamicDashboardDisplay playback={playback} />;
     }

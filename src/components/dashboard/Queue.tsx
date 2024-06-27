@@ -27,7 +27,7 @@ export default function Queue({
       <DialogContent className="w-full overflow-y-scroll max-h-screen flex flex-col justify-start">
         <DialogHeader>
           <DialogTitle>Queue</DialogTitle>
-          <DialogDescription>View and modify the BBQ queue.</DialogDescription>
+          <DialogDescription>View the BBQ queue.</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col items-center justify-center h-full py-5">

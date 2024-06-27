@@ -5,15 +5,18 @@ import { useEffect, useState } from "react";
 import Controls from "./Controls";
 import NoPlayback from "../NoPlayback";
 import Queue from "./Queue";
+import Search from "./SearchModal";
 import Volume from "./Volume";
 import Wrapper from "../Wrapper";
 
 export default function DashboardDisplay({
   playback,
   queue,
+  admin,
 }: {
   playback: SpotifyApi.CurrentlyPlayingResponse | null;
   queue?: SpotifyApi.UsersQueueResponse | null;
+  admin?: true;
 }) {
   const [currentPlayback, setCurrentPlayback] =
     useState<SpotifyApi.CurrentlyPlayingResponse | null>(playback);
@@ -91,6 +94,7 @@ export default function DashboardDisplay({
           {currentQueue && <Queue queueResponse={currentQueue} />}
           <Controls isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
           <Volume volume={volume} setVolume={setVolume} />
+          {admin && <Search />}
         </>
       ) : (
         <NoPlayback dashboard />

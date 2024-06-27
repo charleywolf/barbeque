@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import getQueue from "@/lib/fetch/getQueue";
+import isAdminSession from "@/lib/isAdminSession";
 
 export async function GET() {
   const session = await auth();
@@ -8,15 +9,8 @@ export async function GET() {
   if (!session) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
-  if (!process.env.ADMIN_USERS) throw Error("Missing environmentals!");
 
-  const adminList = process.env.ADMIN_USERS.split(" ");
-
-  if (
-    !session.user ||
-    !session.user.email ||
-    !adminList.includes(session.user.email)
-  ) {
+  if (!isAdminSession(session)) {
     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
   }
 

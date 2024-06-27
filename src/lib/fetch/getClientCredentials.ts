@@ -20,7 +20,7 @@ export default async function getClientCredentials(): Promise<string> {
           Buffer.from(client_id + ":" + client_secret).toString("base64"),
       },
       method: "POST",
-      body: ["grant_type=authorization_code"].join("&"),
+      body: new URLSearchParams({ grant_type: "client_credentials" }),
       next: {
         revalidate: 3600,
       },
@@ -35,13 +35,10 @@ export default async function getClientCredentials(): Promise<string> {
       typeof body === "object" &&
       body &&
       "access_token" in body &&
-      "token_type" in body &&
-      body.token_type &&
       body.access_token &&
-      typeof body.access_token === "string" &&
-      typeof body.token_type === "string"
+      typeof body.access_token === "string"
     ) {
-      return body.token_type + " " + body.access_token;
+      return body.access_token;
     } else {
       throw Error(
         `Invalid response from Spotify API: ${data.status} ${data.statusText}`

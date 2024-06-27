@@ -1,40 +1,24 @@
-import { IconExplicit } from "@tabler/icons-react";
-import Image from "next/image";
-import clsx from "clsx";
+import { IconDots, IconExplicit } from "@tabler/icons-react";
 
-export interface SongCardProps {
-  image?: SpotifyApi.ImageObject;
-  title: string;
-  artists: string;
-  explicit: boolean;
-  index: number;
+import Image from "next/image";
+import SearchCardSettings from "./SearchCardSettings";
+import { SongCardProps } from "./SongCard";
+
+export interface SearchCardProps extends Omit<SongCardProps, "index"> {
+  uri: string;
 }
 
-export default function SongCard({
+export default function SearchCard({
   image,
   title,
   artists,
-  index,
   explicit,
-}: SongCardProps) {
+  uri,
+}: SearchCardProps) {
   return (
-    <div
-      className={clsx(
-        "relative w-full grid grid-cols-10 gap-2 p-2 rounded-xl items-center",
-        index === 1
-          ? "animate-active-song hover:bg-yellow-300"
-          : "hover:bg-neutral-100"
-      )}
-    >
-      {/* NUMBER */}
-      <div className="flex items-center justify-center">
-        <span className="py-1 px-2 border-2 border-black rounded-xl h-fit">
-          {index}
-        </span>
-      </div>
-
+    <div className="relative w-full grid grid-cols-4 gap-4 p-2 rounded-xl items-center">
       {/* IMAGE */}
-      <div className="flex col-span-3 items-center justify-center">
+      <div className="flex items-center justify-center">
         {image ? (
           <Image
             src={image.url}
@@ -50,7 +34,7 @@ export default function SongCard({
       </div>
 
       {/* INFO */}
-      <div className="gap-1 col-span-6 flex flex-col pr-10">
+      <div className="gap-1 col-span-3 flex flex-col pr-10">
         <h1 className="text-xl overflow-hidden whitespace-nowrap text-ellipsis">
           {title}
         </h1>
@@ -61,6 +45,10 @@ export default function SongCard({
 
       {/* EXPLICIT */}
       {explicit && <IconExplicit className="absolute top-3 right-3 h-5 w-5" />}
+
+      {/* THREE DOTS */}
+
+      <SearchCardSettings uri={uri} />
     </div>
   );
 }

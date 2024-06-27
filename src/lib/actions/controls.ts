@@ -1,8 +1,11 @@
 "use server";
 
+import addItemToQueue from "../fetch/addItemToQueue";
 import { auth } from "@/auth";
+import isAdminSession from "../isAdminSession";
 import pausePlayback from "../fetch/pausePlayback";
 import resumePlayback from "../fetch/resumePlayback";
+import searchForItem from "../fetch/searchForItem";
 import setPlaybackVolume from "../fetch/setPlaybackVolume";
 import skipToNext from "../fetch/skipToNext";
 import skipToPrevious from "../fetch/skipToPrevious";
@@ -46,6 +49,30 @@ export async function saveVolume(volumePercent: number): Promise<boolean> {
 
   if (session && session.user) {
     const status = await setPlaybackVolume(volumePercent);
+    return status;
+  } else {
+    return false;
+  }
+}
+
+export async function search(
+  query: string
+): Promise<SpotifyApi.TrackSearchResponse | null> {
+  const session = await auth();
+
+  if (query !== "" && isAdminSession(session)) {
+    const results = await searchForItem(query);
+    return results;
+  }
+
+  return null;
+}
+
+export async function add(uri: string): Promise<boolean> {
+  const session = await auth();
+
+  if (isAdminSession(session)) {
+    const status = await addItemToQueue(uri);
     return status;
   } else {
     return false;

@@ -34,7 +34,7 @@ export default async function getPlaybackState(): Promise<SpotifyApi.CurrentlyPl
     } else if (data.status === 204) {
       return null;
     } else {
-      throw Error(data.status.toString());
+      throw Error(`${data.status} - ${data.statusText}`);
     }
   } catch (e) {
     console.error("Fetch error: " + e);
