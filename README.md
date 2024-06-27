@@ -2,7 +2,7 @@
 
 Barbeque is a web application which allows multiple people to control a Spotify Connect device at once.
 
-**Note: A song must already be playing (although it can be paused) before the dashboard can be used.**
+**Note: A song must already be in the player (although *it can be paused*) before the dashboard can be used. If a song is not already in the player at build-time, it will take up to 60 seconds for the song to propogate and display.**
 
 # Screenshots
 
