@@ -13,6 +13,7 @@ export default async function getPlaybackState(): Promise<SpotifyApi.CurrentlyPl
       },
       next: {
         tags: ["playback"],
+        revalidate: 60,
       },
     });
 
