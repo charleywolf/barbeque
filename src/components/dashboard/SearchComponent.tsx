@@ -24,18 +24,20 @@ export default function SearchComponent() {
 
   return (
     <div className="flex flex-col items-center h-full py-5">
-      <div className="w-full mx-2 flex gap-2 items-center px-3 py-2 h-10">
-        <form onSubmit={handleSearch}>
-          <Input
-            ref={searchRef}
-            type="submit"
-            placeholder="What do you want to play?"
-          />
-          <Button type="submit" className="rounded-full h-10">
-            <IconSearch />
-          </Button>
-        </form>
-      </div>
+      <form
+        onSubmit={handleSearch}
+        className="w-full mx-2 flex gap-2 items-center px-3 py-2 h-10"
+      >
+        <Input
+          ref={searchRef}
+          type="text"
+          placeholder="What do you want to play?"
+        />
+        <Button type="submit" className="rounded-full h-10">
+          <IconSearch />
+        </Button>
+      </form>
+
       <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {results?.tracks.items.map((song, index) => (
           <SearchCard
