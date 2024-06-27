@@ -16,7 +16,7 @@ export default function NoPlayback({ dashboard }: { dashboard?: boolean }) {
           onClick={handleRefresh}
           className="text-black h-10 z-20 flex bg-white px-3 py-2 rounded-full"
         >
-          Refresh
+          Heat Check!
         </button>
       </div>
     );
