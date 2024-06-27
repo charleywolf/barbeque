@@ -6,6 +6,7 @@ import Link from "next/link";
 import NoPlayback from "../NoPlayback";
 import PauseOverlay from "./PauseOverlay";
 import Wrapper from "../Wrapper";
+import { getCurrentPlayback } from "@/lib/actions/fetch";
 
 export default function PublicDisplay({
   playback,
@@ -18,15 +19,9 @@ export default function PublicDisplay({
   useEffect(() => {
     const interval = setInterval(async () => {
       if (!document.hidden) {
-        const response = await fetch("/api/spotify/current-playback");
-        const data =
-          (await response.json()) as SpotifyApi.CurrentlyPlayingResponse;
-        if (
-          data &&
-          typeof data === "object" &&
-          "device" in data &&
-          data.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID
-        ) {
+        const data = await getCurrentPlayback();
+
+        if (data && data.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID) {
           setCurrentPlayback(data);
         }
       }

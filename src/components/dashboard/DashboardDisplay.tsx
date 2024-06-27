@@ -1,5 +1,6 @@
 "use client";
 
+import { getCurrentPlayback, getCurrentQueue } from "@/lib/actions/fetch";
 import { useEffect, useState } from "react";
 
 import Controls from "./Controls";
@@ -36,20 +37,10 @@ export default function DashboardDisplay({
   useEffect(() => {
     const interval = setInterval(async () => {
       if (!document.hidden) {
-        const response = await fetch("/api/spotify/current-playback");
-        const data =
-          (await response.json()) as SpotifyApi.CurrentlyPlayingResponse;
+        const data = await getCurrentPlayback();
+        const queueData = await getCurrentQueue();
 
-        const queueResponse = await fetch("/api/spotify/queue");
-        const queueData =
-          (await queueResponse.json()) as SpotifyApi.UsersQueueResponse;
-
-        if (
-          data &&
-          typeof data === "object" &&
-          "device" in data &&
-          data.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID
-        ) {
+        if (data && data.device.id === process.env.NEXT_PUBLIC_SPEAKER_ID) {
           if (currentPlayback?.device.volume_percent === volume) {
             setVolume(data?.device.volume_percent);
           }
