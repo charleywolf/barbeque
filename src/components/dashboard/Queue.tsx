@@ -31,7 +31,7 @@ export default function Queue({
         </DialogHeader>
 
         <div className="flex flex-col items-center h-full py-5">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {currently_playing.type === "track" && (
               <SongCard
                 title={currently_playing.name}
@@ -58,6 +58,7 @@ export default function Queue({
                 );
               }
             })}
+            <hr className="h-10 col-span-full" />
           </div>
         </div>
       </DialogContent>

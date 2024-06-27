@@ -37,9 +37,8 @@ export default function SearchComponent() {
           <IconSearch />
         </Button>
       </form>
-
-      <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-        {results?.tracks.items.map((song, index) => (
+      <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+        {results?.tracks.items.map((song) => (
           <SearchCard
             key={song.id}
             uri={song.uri}
@@ -49,6 +48,7 @@ export default function SearchComponent() {
             explicit={song.explicit}
           />
         ))}
+        {results && <hr className="h-10 col-span-full" />}
       </div>
     </div>
   );
