@@ -1,6 +1,6 @@
 import { revalidateTag } from "next/cache";
 
-export function timeoutPlaybackState(
+export async function timeoutPlaybackState(
   currentPosition: number | null,
   endPosition: number | null,
   timeOfRequest: number | null
@@ -13,9 +13,11 @@ export function timeoutPlaybackState(
   if (Date.now() > endTime) {
     revalidateTag("playback");
   } else {
-    setTimeout(() => {
-      revalidateTag("playback");
-    }, endTime - Date.now());
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(revalidateTag("playback"));
+      }, endTime - Date.now());
+    });
   }
 
   return;
