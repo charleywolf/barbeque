@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Barbeque
 
-## Getting Started
+Barbeque is a web application which allows multiple people to control a Spotify Connect device at once.
 
-First, run the development server:
+**Note: A song must already be playing (although it can be paused) before the dashboard can be used.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Screenshots
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<div style="display: flex">
+  <img src="https://i.ibb.co/wCL3q1X/Screenshot-2024-06-26-at-9-55-57-PM.png" height="500" alt="Dashboard"/>&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://i.ibb.co/G0PQFyF/localhost-3000-dashboard-i-Phone-XR-2.png" height="500" alt="Search"/>&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://i.ibb.co/FV4sXYR/localhost-3000-dashboard-i-Phone-XR.png" height="500" alt="Queue"/>&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://i.ibb.co/j5gX8Vz/localhost-3000-dashboard-i-Phone-XR-1.png" height="500" alt="Information"/>
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Google OAuth integration allows easy signin and an easy way to approve people (via their email address) to access your speaker.
 
-## Learn More
+- Guests (users without permitted accounts) can view the currently playing song along with its cover image and artist(s).
 
-To learn more about Next.js, take a look at the following resources:
+    - **Additional information about the song** is visible in the Info tab in the top right.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Dashboard users can do **basic audio controls**: pause/resume, skip to the next song, skip to the last song, and control the volume.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Admin users can do all of the above and also **search for songs and add them to the queue**, and **view the queue**.
 
-## Deploy on Vercel
+- Caching based on the length of the song and revalidation upon a dashboard action lowers the cost on your host and lowers the requests sent to the Spotify API, to avoid ratelimiting.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Deployment Guide
+
+To deploy this project you must follow these steps:
+
+- Configure your OAuth with Google 
+- Create and setup a Spotify application **(Spotify Premium Required)**
+- Setup your environmental variables
+- Deploy on a platform compatible with Next.js
+
+
+### Configure your OAuth with Google 
+
+- Go to [the google developer console](https://console.developers.google.com/apis/credentials).
+- Press **Create Credentials** near the top of the page.
+- In the appearing dropdown, choose **OAuth client ID**.
+- The **Application type** should be Web application.
+- Add the production domain, followed by **/api/auth/callback/google** as an **Authorized redirect URI**.
+- Save the Client Id and Client Secret for environmental variables.
+
+### Create and setup a Spotify Application
+
+*From the Spotify Docs:*
+- Login to the [dashboard](https://developer.spotify.com/dashboard) using your account.
+- [Create an app](https://developer.spotify.com/documentation/web-api/concepts/apps) and select "Web API" for the question asking which APIs are you planning to use. 
+- Add the production domain, followed by **/api/spotify/generateRefreshToken** as a redirect URI. In addition, add http://localhost:3000 followed by that URL for local setup.
+- Once you have created your app, save the Client ID and Client Secret for the environmental variables.
+
+### Setup your environmental variables
+
+Add these to wherever your environmental variables are stored.
+
+`AUTH_SECRET`
+Run `openssl rand -base64 33` on your terminal to generate a valid authentication secret, used to validate sessions.
+
+`AUTH_GOOGLE_ID`
+Your google client ID, from the previous steps.
+
+`AUTH_GOOGLE_SECRET`
+Your google client secret, from the previous steps.
+
+`SPOTIFY_CLIENT_ID`
+Your spotify client ID, from the previous steps.
+
+`SPOTIFY_CLIENT_SECRET`
+Your spotify client secret, from the previous steps.
+
+`NEXT_PUBLIC_SPEAKER_ID`
+Locate the Spotify Connect Speaker's Id that you are intending on using.
+
+`NEXTAUTH_URL`
+The production url of your site. (development environments will be automatically detected)
+
+`ALLOWED_USERS`
+Allowed email addresses to the dashboard, separated by space.
+
+`ADMIN_USERS`
+Users that are allowed to search for songs and add them to the queue; email addresses separated by space.
+
+`SPOTIFY_REFRESH_TOKEN`
+Run the application in development using `npm run dev` and open the `http://localhost:3000/api/spotify` route. Sign in to spotify, and the browser will display a refresh token. Save that as this. *If your app ever breaks and loses authentication for whatever reason, redo this step.*
