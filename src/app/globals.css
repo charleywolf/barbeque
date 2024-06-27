@@ -94,5 +94,5 @@
 }
 
 .h-screen-res {
-  @apply h-[calc(100dvh)];
+  @apply h-[calc(100dvh)] md:h-screen;
 }
