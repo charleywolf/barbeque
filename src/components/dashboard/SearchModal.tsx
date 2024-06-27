@@ -19,7 +19,7 @@ export default function Search({}: {}) {
           Search
         </button>
       </DialogTrigger>
-      <DialogContent className="w-full overflow-y-scroll min-h-screen max-h-screen flex flex-col justify-start">
+      <DialogContent className="w-full overflow-y-scroll min-h-screen max-h-screen h-screen-res flex flex-col justify-start">
         <DialogHeader>
           <DialogTitle>Search</DialogTitle>
           <DialogDescription>

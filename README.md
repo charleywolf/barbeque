@@ -2,7 +2,7 @@
 
 Barbeque is a web application which allows multiple people to control a Spotify Connect device at once.
 
-**Note: A song must already be in the player (although *it can be paused*) before the dashboard can be used. If a song is not already in the player at build-time, it will take up to 60 seconds for the song to propogate and display.**
+**Note: A song must already be in the player (although _it can be paused_) before the dashboard can be used. If a song is not already in the player at build-time, it will take up to 60 seconds for the song to propogate and display.**
 
 # Screenshots
 
@@ -17,28 +17,28 @@ Barbeque is a web application which allows multiple people to control a Spotify 
 
 - Google OAuth integration allows easy signin and an easy way to approve people (via their email address) to access your speaker.
 
+- Caching based on the length of the song and revalidation upon a dashboard action lowers the cost on your host and lowers the requests sent to the Spotify API, to avoid ratelimiting.
+
+- PWA allows users to download the app on their devices and use as a native application.
+
 - Guests (users without permitted accounts) can view the currently playing song along with its cover image and artist(s).
 
-    - **Additional information about the song** is visible in the Info tab in the top right.
+  - **Additional information about the song** is visible in the Info tab in the top right.
 
 - Dashboard users can do **basic audio controls**: pause/resume, skip to the next song, skip to the last song, and control the volume.
 
 - Admin users can do all of the above and also **search for songs and add them to the queue**, and **view the queue**.
 
-- Caching based on the length of the song and revalidation upon a dashboard action lowers the cost on your host and lowers the requests sent to the Spotify API, to avoid ratelimiting.
-
-
 # Deployment Guide
 
 To deploy this project you must follow these steps:
 
-- Configure your OAuth with Google 
+- Configure your OAuth with Google
 - Create and setup a Spotify application **(Spotify Premium Required)**
 - Setup your environmental variables
 - Deploy on a platform compatible with Next.js
 
-
-### Configure your OAuth with Google 
+### Configure your OAuth with Google
 
 - Go to [the google developer console](https://console.developers.google.com/apis/credentials).
 - Press **Create Credentials** near the top of the page.
@@ -49,9 +49,10 @@ To deploy this project you must follow these steps:
 
 ### Create and setup a Spotify Application
 
-*From the Spotify Docs:*
+_From the Spotify Docs:_
+
 - Login to the [dashboard](https://developer.spotify.com/dashboard) using your account.
-- [Create an app](https://developer.spotify.com/documentation/web-api/concepts/apps) and select "Web API" for the question asking which APIs are you planning to use. 
+- [Create an app](https://developer.spotify.com/documentation/web-api/concepts/apps) and select "Web API" for the question asking which APIs are you planning to use.
 - Add the production domain, followed by **/api/spotify/generateRefreshToken** as a redirect URI. In addition, add http://localhost:3000 followed by that URL for local setup.
 - Once you have created your app, save the Client ID and Client Secret for the environmental variables.
 
@@ -87,4 +88,4 @@ Allowed email addresses to the dashboard, separated by space.
 Users that are allowed to search for songs and add them to the queue; email addresses separated by space.
 
 `SPOTIFY_REFRESH_TOKEN`
-Run the application in development using `npm run dev` and open the `http://localhost:3000/api/spotify` route. Sign in to spotify, and the browser will display a refresh token. Save that as this. *If your app ever breaks and loses authentication for whatever reason, redo this step.*
+Run the application in development using `npm run dev` and open the `http://localhost:3000/api/spotify` route. Sign in to spotify, and the browser will display a refresh token. Save that as this. _If your app ever breaks and loses authentication for whatever reason, redo this step._

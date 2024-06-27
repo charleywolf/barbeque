@@ -24,7 +24,7 @@ export default function Queue({
           className="z-20 flex absolute top-3 left-3 h-10 w-10 hover:opacity-80"
         />
       </DialogTrigger>
-      <DialogContent className="w-full overflow-y-scroll max-h-screen flex flex-col justify-start">
+      <DialogContent className="w-full overflow-y-scroll max-h-screen h-screen-res flex flex-col justify-start">
         <DialogHeader>
           <DialogTitle>Queue</DialogTitle>
           <DialogDescription>View the BBQ queue.</DialogDescription>

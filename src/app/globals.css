@@ -90,5 +90,9 @@
 }
 
 .screen {
-  @apply relative w-screen bg-neutral-900 max-h-screen h-[calc(100dvh)] text-white;
+  @apply relative w-screen bg-neutral-900 max-h-screen h-screen-res text-white;
+}
+
+.h-screen-res {
+  @apply h-[calc(100dvh)];
 }
