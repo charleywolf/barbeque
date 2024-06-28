@@ -5,6 +5,8 @@ import getQueue from "@/lib/fetch/getQueue";
 import isAdminSession from "@/lib/isAdminSession";
 import { redirect } from "next/navigation";
 
+export const revalidate = 5;
+
 const DynamicDashboardDisplay = dynamic(
   () => import("@/components/dashboard/DashboardDisplay"),
   {
