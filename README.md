@@ -17,7 +17,7 @@ Barbeque is a web application which allows multiple people to control a Spotify 
 
 - Google OAuth integration allows easy signin and an easy way to approve people (via their email address) to access your speaker.
 
-- Caching based on the length of the song and revalidation upon a dashboard action lowers the cost on your host and lowers the requests sent to the Spotify API, to avoid ratelimiting.
+- 5-second caching and revalidation upon a dashboard action lowers the cost on your host and lowers the requests sent to the Spotify API, to avoid ratelimiting.
 
 - The PWA feature allows users to download the app on their devices and use like a native application.
 
@@ -70,6 +70,9 @@ Your google client ID, from the previous steps.
 `AUTH_GOOGLE_SECRET`
 Your google client secret, from the previous steps.
 
+`AUTH_URL`
+The production url of your site. (development environments will be automatically detected)
+
 `SPOTIFY_CLIENT_ID`
 Your spotify client ID, from the previous steps.
 
@@ -78,9 +81,6 @@ Your spotify client secret, from the previous steps.
 
 `NEXT_PUBLIC_SPEAKER_ID`
 Locate the Spotify Connect Speaker's Id that you are intending on using.
-
-`NEXTAUTH_URL`
-The production url of your site. (development environments will be automatically detected)
 
 `ALLOWED_USERS`
 Allowed email addresses to the dashboard, separated by space.
