@@ -25,7 +25,7 @@ export default async function pausePlayback(): Promise<boolean> {
       );
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in pausePlayback: " + e);
     return false;
   }
 }

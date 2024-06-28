@@ -4,7 +4,6 @@ import { Button } from "../ui/button";
 import { IconSearch } from "@tabler/icons-react";
 import { Input } from "../ui/input";
 import SearchCard from "./SearchCard";
-import SongCard from "./SongCard";
 import { search } from "@/lib/actions/controls";
 
 export default function SearchComponent() {

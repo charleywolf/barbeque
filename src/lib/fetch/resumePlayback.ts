@@ -23,7 +23,7 @@ export default async function resumePlayback(): Promise<boolean> {
       throw Error("Invalid response from Spotify API");
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in resumePlayback: " + e);
     return false;
   }
 }

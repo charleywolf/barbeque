@@ -28,7 +28,7 @@ export default async function addItemToQueue(uri: string): Promise<boolean> {
       );
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in addItemToQueue: " + e);
     return false;
   }
 }

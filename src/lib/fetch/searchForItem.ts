@@ -29,7 +29,7 @@ export default async function searchForItem(
       );
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in searchForItem: " + e);
     return null;
   }
 }

@@ -25,7 +25,7 @@ export default async function getQueue(): Promise<SpotifyApi.UsersQueueResponse 
       );
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in getQueue: " + e);
     return null;
   }
 }

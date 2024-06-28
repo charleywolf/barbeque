@@ -29,7 +29,7 @@ export default async function getPlaybackState(): Promise<SpotifyApi.CurrentlyPl
       throw Error(`${data.status} - ${data.statusText}`);
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in getPlaybackState: " + e);
     return null;
   }
 }

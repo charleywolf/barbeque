@@ -1,5 +1,4 @@
-import { IconDots, IconExplicit } from "@tabler/icons-react";
-
+import { IconExplicit } from "@tabler/icons-react";
 import Image from "next/image";
 import SearchCardSettings from "./SearchCardSettings";
 import { SongCardProps } from "./SongCard";

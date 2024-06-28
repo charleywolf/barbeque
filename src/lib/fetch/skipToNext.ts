@@ -25,7 +25,7 @@ export default async function skipToNext(): Promise<boolean> {
       );
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in skipToNext: " + e);
     return false;
   }
 }

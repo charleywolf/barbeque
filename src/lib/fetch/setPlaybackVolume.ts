@@ -28,7 +28,7 @@ export default async function setPlaybackVolume(
       );
     }
   } catch (e) {
-    console.error("Fetch error: " + e);
+    console.error("Fetch error in setPlaybackVolume: " + e);
     return false;
   }
 }
