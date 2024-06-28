@@ -19,7 +19,7 @@ Barbeque is a web application which allows multiple people to control a Spotify 
 
 - Caching based on the length of the song and revalidation upon a dashboard action lowers the cost on your host and lowers the requests sent to the Spotify API, to avoid ratelimiting.
 
-- PWA allows users to download the app on their devices and use as a native application.
+- The PWA feature allows users to download the app on their devices and use like a native application.
 
 - Guests (users without permitted accounts) can view the currently playing song along with its cover image and artist(s).
 
@@ -37,6 +37,7 @@ To deploy this project you must follow these steps:
 - Create and setup a Spotify application **(Spotify Premium Required)**
 - Setup your environmental variables
 - Deploy on a platform compatible with Next.js
+  - **IMPORTANT NOTE:** Serverless architecture is not recommended to host this site, as it can be very costly with the amount of function invocations that come as a result of (as close to) real time updates as we have.
 
 ### Configure your OAuth with Google
 
