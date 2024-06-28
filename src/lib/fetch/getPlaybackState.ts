@@ -1,7 +1,6 @@
 import "server-only";
 
 import getUserAuthorization from "./getUserAuthorization";
-import { timeoutPlaybackState } from "../timeout";
 
 export default async function getPlaybackState(): Promise<SpotifyApi.CurrentlyPlayingResponse | null> {
   try {
@@ -13,7 +12,7 @@ export default async function getPlaybackState(): Promise<SpotifyApi.CurrentlyPl
       },
       next: {
         tags: ["playback"],
-        revalidate: 60,
+        revalidate: 5,
       },
     });
 
@@ -22,14 +21,6 @@ export default async function getPlaybackState(): Promise<SpotifyApi.CurrentlyPl
 
       const playbackState: SpotifyApi.CurrentlyPlayingResponse =
         body as SpotifyApi.CurrentPlaybackResponse;
-
-      playbackState.is_playing &&
-        playbackState.item &&
-        timeoutPlaybackState(
-          playbackState.progress_ms,
-          playbackState.item.duration_ms,
-          playbackState.timestamp
-        );
 
       return playbackState;
     } else if (data.status === 204) {
