@@ -22,7 +22,6 @@ export default async function searchForItem(
 
     if (data.status === 200) {
       const body = (await data.json()) as SpotifyApi.TrackSearchResponse;
-      console.log(body);
       return body;
     } else {
       throw Error(
