@@ -3,7 +3,9 @@ import "server-only";
 import getUserAuthorization from "./getUserAuthorization";
 import { revalidateTag } from "next/cache";
 
-export default async function resumePlayback(): Promise<boolean> {
+export default async function resumePlayback(
+  playlistUri?: string
+): Promise<boolean> {
   try {
     const authToken = await getUserAuthorization();
 
@@ -13,7 +15,10 @@ export default async function resumePlayback(): Promise<boolean> {
         "Content-Type": "application/json; charset=UTF-8",
         Authorization: "Bearer " + authToken,
       },
-      body: JSON.stringify({ device_id: process.env.NEXT_PUBLIC_SPEAKER_ID }),
+      body: JSON.stringify({
+        device_id: process.env.NEXT_PUBLIC_SPEAKER_ID,
+        context_uri: playlistUri,
+      }),
     });
 
     if (data.status === 202 || data.status === 204) {

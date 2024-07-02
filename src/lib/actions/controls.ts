@@ -10,6 +10,7 @@ import searchForItem from "../fetch/searchForItem";
 import setPlaybackVolume from "../fetch/setPlaybackVolume";
 import skipToNext from "../fetch/skipToNext";
 import skipToPrevious from "../fetch/skipToPrevious";
+import transferPlaybackState from "../fetch/transferPlaybackState";
 
 export async function pauseResume(isPlaying: boolean): Promise<boolean> {
   const session = await auth();
@@ -86,6 +87,17 @@ export async function refresh() {
   if (session && session.user && session.user.email) {
     revalidateTag("playback");
     return true;
+  } else {
+    return false;
+  }
+}
+
+export async function startPlaylist() {
+  const session = await auth();
+  if (session && session.user) {
+    await transferPlaybackState();
+    const status = await resumePlayback(process.env.SPOTIFY_PLAYLIST_URI);
+    return status;
   } else {
     return false;
   }

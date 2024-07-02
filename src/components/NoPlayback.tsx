@@ -1,10 +1,12 @@
+import { refresh, startPlaylist } from "@/lib/actions/controls";
+
 import Link from "next/link";
-import { refresh } from "@/lib/actions/controls";
 
 export default function NoPlayback({ dashboard }: { dashboard?: boolean }) {
   const handleRefresh = async () => {
-    const status = await refresh();
-    if (status) window.location.reload();
+    const transferred = await startPlaylist();
+    const refreshed = await refresh();
+    if (refreshed && transferred) window.location.reload();
   };
   if (dashboard) {
     return (
@@ -16,7 +18,7 @@ export default function NoPlayback({ dashboard }: { dashboard?: boolean }) {
           onClick={handleRefresh}
           className="text-black h-10 z-20 flex bg-white px-3 py-2 rounded-full"
         >
-          Heat Check!
+          Start Playlist!
         </button>
       </div>
     );
