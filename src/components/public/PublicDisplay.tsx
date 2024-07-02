@@ -17,6 +17,10 @@ export default function PublicDisplay({
     useState<SpotifyApi.CurrentlyPlayingResponse | null>(playback);
 
   useEffect(() => {
+    setCurrentPlayback(playback);
+  }, [playback]);
+
+  useEffect(() => {
     const interval = setInterval(async () => {
       if (!document.hidden) {
         const data = await getCurrentPlaybackAction();

@@ -90,3 +90,6 @@ Users that are allowed to search for songs and add them to the queue; email addr
 
 `SPOTIFY_REFRESH_TOKEN`
 Run the application in development using `npm run dev` and open the `http://localhost:3000/api/spotify` route. Sign in to spotify, and the browser will display a refresh token. Save that as this. _If your app ever breaks and loses authentication for whatever reason, redo this step._
+
+`SPOTIFY_PLAYLIST_URI`
+Default playlist that allowed users can start if nothing is playing.

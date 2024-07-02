@@ -25,6 +25,10 @@ export default function DashboardDisplay({
   const [currentPlayback, setCurrentPlayback] =
     useState<SpotifyApi.CurrentlyPlayingResponse | null>(playback);
 
+  useEffect(() => {
+    setCurrentPlayback(playback);
+  }, [playback]);
+
   const [isPlaying, setIsPlaying] = useState<boolean>(
     playback?.is_playing ?? false
   );
